@@ -1,910 +1,624 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Almacén de Proyectos - Física III</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Física III - Almacén de Proyectos</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --panel-alt: #eef4ff;
+      --primary: #1d4ed8;
+      --primary-dark: #172554;
+      --primary-soft: #dbeafe;
+      --accent: #06b6d4;
+      --accent-soft: #cffafe;
+      --green: #16a34a;
+      --green-soft: #dcfce7;
+      --amber: #d97706;
+      --amber-soft: #fef3c7;
+      --text: #10213d;
+      --muted: #5b708a;
+      --border: #dde7f4;
+      --shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #edf4ff 0%, #f8fafc 100%);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+      padding: 26px 0 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-mark {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(1.5rem, 2vw, 2.3rem);
+      line-height: 1.2;
+    }
+
+    .brand small {
+      display: block;
+      color: #dbeafe;
+      font-size: 0.8rem;
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34, 211, 238, 0.15);
+      color: #cffafe;
+      border: 1px solid rgba(125, 211, 252, 0.35);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .main-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.5fr) minmax(260px, 0.9fr);
+      gap: 28px;
+      padding: 32px 0 40px;
+    }
+
+    .content { min-width: 0; }
+
+    .hero {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: 26px;
+      margin-bottom: 28px;
+    }
+
+    .hero h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.6rem, 2vw, 2.5rem);
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 70ch;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .stat-value {
+      font-size: clamp(1.5rem, 2vw, 2.2rem);
+      font-weight: 800;
+      margin-top: 6px;
+    }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+    }
+
+    .i-indigo { background: var(--primary-soft); color: var(--primary); }
+    .i-cyan { background: var(--accent-soft); color: #0f766e; }
+    .i-green { background: var(--green-soft); color: var(--green); }
+    .i-amber { background: var(--amber-soft); color: var(--amber); }
+
+    .topics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .topic-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .topic-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 32px rgba(15, 23, 42, 0.12);
+    }
+
+    .topic-art {
+      height: 180px;
+      background: linear-gradient(135deg, var(--panel-alt), #f8fbff);
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .topic-body {
+      padding: 18px 18px 20px;
+    }
+
+    .topic-body h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+      color: var(--text);
+    }
+
+    .topic-body p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.92rem;
+    }
+
+    .topic-badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-magnetismo { background: var(--accent-soft); color: #0f766e; }
+    .badge-imanes { background: var(--amber-soft); color: #92400e; }
+    .badge-electromagnetismo { background: var(--primary-soft); color: var(--primary); }
+    .badge-faraday { background: var(--green-soft); color: #166534; }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .side-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 22px 18px;
+    }
+
+    .side-card h3 {
+      margin: 0 0 16px;
+      font-size: 1.15rem;
+      color: var(--text);
+    }
+
+    .collaborators {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .collaborators li {
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--text);
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 9px 10px;
+    }
+
+    .logo-box {
+      background: linear-gradient(135deg, #f8fafc, #edf4ff);
+      border: 1px dashed var(--border);
+      border-radius: 18px;
+      padding: 20px 16px;
+      text-align: center;
+      min-height: 120px;
+      display: grid;
+      place-items: center;
+      color: var(--primary);
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    .logo-box .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1.1rem;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .small-note {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    footer {
+      background: #0f172a;
+      color: #dfeaf7;
+      padding: 22px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+    }
+
+    .footer-logo .mark {
+      width: 42px;
+      height: 42px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+    }
+
+    @media (max-width: 980px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        order: 2;
+      }
+
+      .topics {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+      }
+    }
+
+    @media (max-width: 500px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
-
-    <!-- HEADER DE NAVEGACIÓN -->
-    <header class="bg-indigo-900 text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <!-- Título y Rol -->
-                <div class="flex items-center space-x-3">
-                    <div class="p-2.5 bg-indigo-700/60 rounded-xl border border-indigo-500/30">
-                        <i data-lucide="atom" class="w-8 h-8 text-cyan-300"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                            Almacén de Proyectos
-                            <span class="text-xs bg-cyan-500/20 text-cyan-300 font-semibold px-2.5 py-0.5 rounded-full border border-cyan-400/30">Física III</span>
-                        </h1>
-                        <p class="text-xs sm:text-sm text-indigo-200 flex items-center gap-1.5 mt-0.5">
-                            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
-                            Panel del Coordinador de Cátedra
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Botón de Acción Principal -->
-                <div class="flex items-center gap-3">
-                    <button onclick="toggleGroupModal(true)" class="inline-flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold px-4 py-2.5 rounded-xl shadow-lg shadow-cyan-500/20 transition-all duration-200 text-sm active:scale-95">
-                        <i data-lucide="users-plus" class="w-5 h-5"></i>
-                        <span>Registrar Grupo</span>
-                    </button>
-                </div>
-            </div>
+<body>
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <div class="brand-mark">⚛️</div>
+        <div>
+          <h1>Almacén de Proyectos</h1>
+          <small>Física III • Curso de investigación y experimentación</small>
         </div>
-    </header>
+      </div>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
-
-        <!-- NAVEGACIÓN POR PESTAÑAS (VISTAS) -->
-        <div class="flex items-center space-x-2 border-b border-slate-200 mb-6">
-            <button id="tab-projects-btn" onclick="switchMainView('projects')" class="flex items-center gap-2 px-4 py-3 font-semibold text-sm border-b-2 border-indigo-600 text-indigo-600 transition-colors">
-                <i data-lucide="file-text" class="w-4 h-4"></i>
-                <span>Lista de Proyectos</span>
-            </button>
-            <button id="tab-groups-btn" onclick="switchMainView('groups')" class="flex items-center gap-2 px-4 py-3 font-medium text-sm text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition-colors">
-                <i data-lucide="users" class="w-4 h-4"></i>
-                <span>Vista por Grupos</span>
-            </button>
-        </div>
-
-        <!-- RESUMEN / MÉTRICAS DEL COORDINADOR -->
-        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <!-- Metric 1 -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
-                <div>
-                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Grupos Registrados</p>
-                    <h3 id="stat-groups" class="text-2xl font-bold text-slate-900 mt-1">0</h3>
-                </div>
-                <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600">
-                    <i data-lucide="users" class="w-6 h-6"></i>
-                </div>
-            </div>
-
-            <!-- Metric 2 -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
-                <div>
-                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Proyectos</p>
-                    <h3 id="stat-total" class="text-2xl font-bold text-cyan-600 mt-1">0</h3>
-                </div>
-                <div class="p-3 bg-cyan-50 rounded-xl text-cyan-600">
-                    <i data-lucide="folder-git-2" class="w-6 h-6"></i>
-                </div>
-            </div>
-
-            <!-- Metric 3 -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
-                <div>
-                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Aprobados</p>
-                    <h3 id="stat-aprobados" class="text-2xl font-bold text-emerald-600 mt-1">0</h3>
-                </div>
-                <div class="p-3 bg-emerald-50 rounded-xl text-emerald-600">
-                    <i data-lucide="check-circle-2" class="w-6 h-6"></i>
-                </div>
-            </div>
-
-            <!-- Metric 4 -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
-                <div>
-                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">En Revisión</p>
-                    <h3 id="stat-revision" class="text-2xl font-bold text-amber-600 mt-1">0</h3>
-                </div>
-                <div class="p-3 bg-amber-50 rounded-xl text-amber-600">
-                    <i data-lucide="clock" class="w-6 h-6"></i>
-                </div>
-            </div>
-        </section>
-
-        <!-- FILTROS Y BÚSQUEDA -->
-        <section class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm mb-8 space-y-4">
-            <div class="flex flex-col lg:flex-row gap-4 justify-between items-stretch lg:items-center">
-                <!-- Buscador -->
-                <div class="relative flex-1">
-                    <i data-lucide="search" class="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                    <input 
-                        type="text" 
-                        id="search-input" 
-                        oninput="renderMainView()"
-                        placeholder="Buscar por grupo, integrante o título de proyecto..." 
-                        class="w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-slate-400"
-                    >
-                </div>
-
-                <!-- Filtro por Estado -->
-                <div class="flex items-center gap-2">
-                    <span class="text-xs font-semibold text-slate-500 uppercase">Estado:</span>
-                    <select id="status-filter" onchange="renderMainView()" class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500">
-                        <option value="Todos">Todos</option>
-                        <option value="Aprobado">Aprobado</option>
-                        <option value="En Revisión">En Revisión</option>
-                        <option value="Entregado">Entregado</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Categorías / Temas de Física III -->
-            <div class="flex items-center gap-2 overflow-x-auto pb-2 pt-2 scrollbar-none border-t border-slate-100">
-                <span class="text-xs font-semibold text-slate-400 uppercase mr-2 whitespace-nowrap">Temas:</span>
-                <div id="category-buttons" class="flex items-center gap-2">
-                    <!-- Dinámico via JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 1: VISTA DE TODOS LOS PROYECTOS (PRINCIPAL) -->
-        <section id="projects-view-section">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                    <span>Todos los Proyectos</span>
-                    <span id="projects-counter-badge" class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">0</span>
-                </h2>
-            </div>
-
-            <div id="projects-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                <!-- Tarjetas de proyectos compilados -->
-            </div>
-
-            <div id="projects-empty-state" class="hidden text-center py-16 bg-white rounded-2xl border border-dashed border-slate-300">
-                <div class="inline-flex p-4 bg-slate-100 rounded-full text-slate-400 mb-4">
-                    <i data-lucide="folder-open" class="w-10 h-10"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-slate-800">No hay proyectos registrados</h3>
-                <p class="text-slate-500 text-sm max-w-sm mx-auto mt-1">Registra un grupo e ingresa la contraseña para agregar proyectos.</p>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 2: VISTA DE GRUPOS DE TRABAJO -->
-        <section id="groups-view-section" class="hidden">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                    <span>Grupos de Trabajo</span>
-                    <span id="counter-badge" class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">0</span>
-                </h2>
-            </div>
-
-            <div id="groups-container" class="space-y-6">
-                <!-- Se poblará dinámicamente -->
-            </div>
-
-            <div id="empty-state" class="hidden text-center py-16 bg-white rounded-2xl border border-dashed border-slate-300">
-                <div class="inline-flex p-4 bg-slate-100 rounded-full text-slate-400 mb-4">
-                    <i data-lucide="users" class="w-10 h-10"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-slate-800">No hay grupos registrados</h3>
-                <p class="text-slate-500 text-sm max-w-sm mx-auto mt-1">Registra primero un grupo de estudiantes para luego adjuntar sus proyectos.</p>
-                <button onclick="toggleGroupModal(true)" class="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 px-4 py-2 rounded-xl border border-indigo-100">
-                    <i data-lucide="plus-circle" class="w-4 h-4"></i>
-                    Registrar Primer Grupo
-                </button>
-            </div>
-        </section>
-    </main>
-
-    <!-- MODAL 1: REGISTRAR GRUPO CON CONTRASEÑA -->
-    <div id="modal-group" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden transition-opacity duration-200 opacity-0">
-        <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 max-w-lg w-full overflow-hidden transform transition-all scale-95 duration-200" id="modal-group-container">
-            <div class="bg-indigo-900 text-white px-6 py-4 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="users-plus" class="w-5 h-5 text-cyan-300"></i>
-                    <h3 class="font-bold text-base">Registrar Nuevo Grupo</h3>
-                </div>
-                <button onclick="toggleGroupModal(false)" class="text-indigo-200 hover:text-white rounded-lg p-1 hover:bg-indigo-800 transition-colors">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-
-            <form id="group-form" onsubmit="handleGroupSubmit(event)" class="p-6 space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nombre o Número de Grupo *</label>
-                    <input type="text" id="group-name-input" required placeholder="Ej. Grupo 01 - Equipo Alfa" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Integrantes del Grupo *</label>
-                    <textarea id="group-members-input" rows="2" required placeholder="Lista de integrantes (Ej. Carlos Mendoza, Ana Torres, Pedro Gómez)" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none resize-none"></textarea>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Contraseña del Grupo *</label>
-                    <input type="password" id="group-password-input" required placeholder="Contraseña para gestionar este grupo" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
-                    <p class="text-[11px] text-slate-500 mt-1">Guarda esta contraseña. Se requerirá para agregar, editar o eliminar contenidos del grupo.</p>
-                </div>
-
-                <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
-                    <button type="button" onclick="toggleGroupModal(false)" class="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-xl transition-colors">Cancelar</button>
-                    <button type="submit" class="px-5 py-2 text-sm font-semibold text-slate-950 bg-cyan-400 hover:bg-cyan-300 rounded-xl shadow-md transition-all active:scale-95">Crear Grupo</button>
-                </div>
-            </form>
-        </div>
+      <div class="chip">📘 Tema del curso: Fuerza, campo y energía</div>
     </div>
+  </header>
 
-    <!-- MODAL 2: REGISTRAR / EDITAR PROYECTO -->
-    <div id="modal-project" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden transition-opacity duration-200 opacity-0">
-        <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 max-w-lg w-full overflow-hidden transform transition-all scale-95 duration-200" id="modal-project-container">
-            <div class="bg-indigo-900 text-white px-6 py-4 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="file-plus-2" class="w-5 h-5 text-cyan-300"></i>
-                    <h3 class="font-bold text-base" id="modal-project-title">Registrar Proyecto</h3>
-                </div>
-                <button onclick="toggleProjectModal(false)" class="text-indigo-200 hover:text-white rounded-lg p-1 hover:bg-indigo-800 transition-colors">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
+  <main class="container main-layout">
+    <section class="content">
+      <div class="hero">
+        <h2>Explora los temas clave de Física III</h2>
+        <p>
+          Este espacio reúne proyectos, ideas y análisis sobre temas fundamentales del curso:
+          magnetismo, imanes, electromagnetismo y la ley de Faraday. Cada contenido está pensado
+          para apoyar el aprendizaje práctico, la investigación y la presentación académica de
+          cada grupo.
+        </p>
+      </div>
 
-            <form id="project-form" onsubmit="handleProjectSubmit(event)" class="p-6 space-y-4">
-                <input type="hidden" id="form-group-id">
-                <input type="hidden" id="form-project-id">
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Categoría / Tema de Física III *</label>
-                    <select id="form-category" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
-                        <option value="">Seleccionar Tema...</option>
-                        <option value="El magnetismo">El magnetismo</option>
-                        <option value="Imanes">Imanes</option>
-                        <option value="Electromagnetismo">Electromagnetismo</option>
-                        <option value="Ley de Faraday">Ley de Faraday</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Título del Proyecto *</label>
-                    <input type="text" id="form-title" required placeholder="Ej. Medición del Campo Magnético en Solenoides" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Enlace del Documento (URL) *</label>
-                        <input type="url" id="form-url" required placeholder="https://drive.google.com/..." class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Estado de Entrega</label>
-                        <select id="form-status" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
-                            <option value="Entregado">Entregado</option>
-                            <option value="En Revisión">En Revisión</option>
-                            <option value="Aprobado">Aprobado</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Resumen / Descripción corta *</label>
-                    <textarea id="form-description" rows="3" required placeholder="Breve síntesis del objetivo, metodología y resultados..." class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none resize-none"></textarea>
-                </div>
-
-                <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
-                    <button type="button" onclick="toggleProjectModal(false)" class="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-xl transition-colors">Cancelar</button>
-                    <button type="submit" class="px-5 py-2 text-sm font-semibold text-slate-950 bg-cyan-400 hover:bg-cyan-300 rounded-xl shadow-md transition-all active:scale-95">Guardar Proyecto</button>
-                </div>
-            </form>
+      <div class="stats-grid">
+        <div class="stat">
+          <div>
+            <div class="stat-label">Grupos</div>
+            <div class="stat-value">30</div>
+          </div>
+          <div class="icon-box i-indigo">👥</div>
         </div>
-    </div>
 
-    <!-- MODAL 3: SOLICITAR CONTRASEÑA DE CONFIRMACIÓN -->
-    <div id="modal-auth" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden transition-opacity duration-200 opacity-0">
-        <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 max-w-sm w-full overflow-hidden transform transition-all scale-95 duration-200" id="modal-auth-container">
-            <div class="bg-slate-900 text-white px-5 py-4 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="lock" class="w-5 h-5 text-amber-400"></i>
-                    <h3 class="font-bold text-sm">Autenticación de Grupo</h3>
-                </div>
-                <button onclick="toggleAuthModal(false)" class="text-slate-400 hover:text-white rounded-lg p-1 transition-colors">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-
-            <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="p-5 space-y-4">
-                <p id="auth-prompt-msg" class="text-xs text-slate-600">Ingresa la contraseña del grupo para autorizar la acción.</p>
-                <div>
-                    <input type="password" id="auth-password-input" required placeholder="Contraseña de grupo" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
-                </div>
-
-                <div class="flex items-center justify-end gap-2 pt-2">
-                    <button type="button" onclick="toggleAuthModal(false)" class="px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg">Cancelar</button>
-                    <button type="submit" class="px-4 py-1.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg shadow-md transition-all">Verificar Clave</button>
-                </div>
-            </form>
+        <div class="stat">
+          <div>
+            <div class="stat-label">Proyectos</div>
+            <div class="stat-value">42</div>
+          </div>
+          <div class="icon-box i-cyan">📁</div>
         </div>
-    </div>
 
-    <!-- TOAST DE NOTIFICACIÓN -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 z-50">
-        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
-        <span id="toast-message" class="text-sm font-medium">¡Operación completada!</span>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-center text-xs mt-auto">
-        <div class="max-w-7xl mx-auto px-4">
-            <p>© 2026 Coordinación de Física III — Sistema de Gestión de Trabajos Académicos</p>
+        <div class="stat">
+          <div>
+            <div class="stat-label">Aprobados</div>
+            <div class="stat-value">18</div>
+          </div>
+          <div class="icon-box i-green">✅</div>
         </div>
-    </footer>
 
-    <!-- LÓGICA EN JAVASCRIPT -->
-    <script>
-        // ESTADO GLOBAL
-        let groups = [];
-        let activeView = "projects"; // 'projects' o 'groups'
-        const categories = ["Todas", "El magnetismo", "Imanes", "Electromagnetismo", "Ley de Faraday"];
-        let currentCategory = "Todas";
-
-        // Acción pendiente tras autenticación
-        let pendingAuthAction = null; 
-
-        document.addEventListener("DOMContentLoaded", () => {
-            renderCategoryButtons();
-            renderMainView();
-            updateMetrics();
-            lucide.createIcons();
-        });
-
-        function switchMainView(view) {
-            activeView = view;
-            const projBtn = document.getElementById("tab-projects-btn");
-            const groupBtn = document.getElementById("tab-groups-btn");
-            const projSec = document.getElementById("projects-view-section");
-            const groupSec = document.getElementById("groups-view-section");
-
-            if (view === "projects") {
-                projBtn.className = "flex items-center gap-2 px-4 py-3 font-semibold text-sm border-b-2 border-indigo-600 text-indigo-600 transition-colors";
-                groupBtn.className = "flex items-center gap-2 px-4 py-3 font-medium text-sm text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition-colors";
-                projSec.classList.remove("hidden");
-                groupSec.classList.add("hidden");
-            } else {
-                groupBtn.className = "flex items-center gap-2 px-4 py-3 font-semibold text-sm border-b-2 border-indigo-600 text-indigo-600 transition-colors";
-                projBtn.className = "flex items-center gap-2 px-4 py-3 font-medium text-sm text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition-colors";
-                groupSec.classList.remove("hidden");
-                projSec.classList.add("hidden");
-            }
-            renderMainView();
-        }
-
-        function renderCategoryButtons() {
-            const container = document.getElementById("category-buttons");
-            container.innerHTML = categories.map(cat => `
-                <button 
-                    onclick="selectCategory('${cat}')" 
-                    class="px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-150 ${
-                        currentCategory === cat 
-                            ? 'bg-indigo-900 text-white shadow-sm' 
-                            : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                    }"
-                >
-                    ${cat}
-                </button>
-            `).join('');
-        }
-
-        function selectCategory(cat) {
-            currentCategory = cat;
-            renderCategoryButtons();
-            renderMainView();
-        }
-
-        function renderMainView() {
-            if (activeView === "projects") {
-                renderProjectsList();
-            } else {
-                renderGroups();
-            }
-        }
-
-        // RENDER VISTA DE PROYECTOS (PRINCIPAL)
-        function renderProjectsList() {
-            const searchVal = document.getElementById("search-input").value.toLowerCase();
-            const statusVal = document.getElementById("status-filter").value;
-            const container = document.getElementById("projects-list-container");
-            const emptyState = document.getElementById("projects-empty-state");
-
-            // Recopilar todos los proyectos adjuntando la información de su grupo asignado
-            let allProjects = [];
-            groups.forEach(g => {
-                g.projects.forEach(p => {
-                    allProjects.push({
-                        ...p,
-                        groupId: g.id,
-                        groupName: g.name,
-                        groupMembers: g.members
-                    });
-                });
-            });
-
-            const filteredProjects = allProjects.filter(p => {
-                const matchesSearch = p.title.toLowerCase().includes(searchVal) ||
-                                      p.description.toLowerCase().includes(searchVal) ||
-                                      p.groupName.toLowerCase().includes(searchVal) ||
-                                      p.groupMembers.toLowerCase().includes(searchVal);
-
-                const matchesCategory = currentCategory === "Todas" || p.category === currentCategory;
-                const matchesStatus = statusVal === "Todos" || p.status === statusVal;
-
-                return matchesSearch && matchesCategory && matchesStatus;
-            });
-
-            document.getElementById("projects-counter-badge").textContent = filteredProjects.length;
-
-            if (filteredProjects.length === 0) {
-                container.innerHTML = "";
-                emptyState.classList.remove("hidden");
-                return;
-            }
-
-            emptyState.classList.add("hidden");
-            container.innerHTML = filteredProjects.map(p => `
-                <article class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5 flex flex-col justify-between hover:shadow-md transition-all">
-                    <div>
-                        <!-- Header del Proyecto con Badge de Grupo -->
-                        <div class="flex items-center justify-between gap-2 mb-3">
-                            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-900 bg-indigo-50 border border-indigo-100 px-2.5 py-1 rounded-lg">
-                                <i data-lucide="users" class="w-3.5 h-3.5 text-indigo-600"></i>
-                                ${escapeHtml(p.groupName)}
-                            </span>
-                            <span class="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${getStatusBadgeColor(p.status)}">
-                                ${getStatusIcon(p.status)}
-                                ${p.status}
-                            </span>
-                        </div>
-
-                        <!-- Categoría -->
-                        <div class="mb-2">
-                            <span class="text-[11px] font-semibold px-2 py-0.5 rounded-md ${getCategoryBadgeColor(p.category)}">
-                                ${p.category}
-                            </span>
-                        </div>
-
-                        <!-- Título y Descripción -->
-                        <h3 class="font-bold text-slate-900 text-base leading-snug mb-2">${escapeHtml(p.title)}</h3>
-                        <p class="text-xs text-slate-600 line-clamp-3 mb-4 leading-relaxed">
-                            ${escapeHtml(p.description)}
-                        </p>
-                    </div>
-
-                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <button onclick="requestAuthForEditProject(${p.groupId}, ${p.id})" title="Editar proyecto" class="text-slate-400 hover:text-indigo-600 p-1 transition-colors">
-                                <i data-lucide="edit-3" class="w-4 h-4"></i>
-                            </button>
-                            <button onclick="requestAuthForDeleteProject(${p.groupId}, ${p.id})" title="Eliminar proyecto" class="text-slate-400 hover:text-rose-600 p-1 transition-colors">
-                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                        <a href="${escapeHtml(p.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-100">
-                            <span>Ver Documento</span>
-                            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                        </a>
-                    </div>
-                </article>
-            `).join('');
-
-            lucide.createIcons();
-        }
-
-        // RENDER VISTA DE GRUPOS
-        function renderGroups() {
-            const searchVal = document.getElementById("search-input").value.toLowerCase();
-            const statusVal = document.getElementById("status-filter").value;
-            const container = document.getElementById("groups-container");
-            const emptyState = document.getElementById("empty-state");
-
-            const filteredGroups = groups.filter(g => {
-                const matchesSearch = g.name.toLowerCase().includes(searchVal) || 
-                                      g.members.toLowerCase().includes(searchVal) ||
-                                      g.projects.some(p => p.title.toLowerCase().includes(searchVal) || p.description.toLowerCase().includes(searchVal));
-
-                const matchesCategory = currentCategory === "Todas" || 
-                                        g.projects.some(p => p.category === currentCategory);
-
-                let matchesStatus = true;
-                if (statusVal !== "Todos") {
-                    matchesStatus = g.projects.some(p => p.status === statusVal);
-                }
-
-                return matchesSearch && matchesCategory && matchesStatus;
-            });
-
-            document.getElementById("counter-badge").textContent = filteredGroups.length;
-
-            if (filteredGroups.length === 0) {
-                container.innerHTML = "";
-                emptyState.classList.remove("hidden");
-                return;
-            }
-
-            emptyState.classList.add("hidden");
-            container.innerHTML = filteredGroups.map(g => `
-                <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
-                    <div class="bg-slate-900 text-white p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="bg-cyan-500/20 text-cyan-300 text-xs font-bold px-2.5 py-0.5 rounded-md border border-cyan-400/30">
-                                    ${escapeHtml(g.name)}
-                                </span>
-                                <span class="text-xs text-slate-400">
-                                    • ${g.projects.length} proyecto(s)
-                                </span>
-                            </div>
-                            <p class="text-xs text-slate-300 mt-1.5 flex items-center gap-1.5">
-                                <i data-lucide="users" class="w-3.5 h-3.5 text-slate-400"></i>
-                                <span><strong class="text-slate-200">Integrantes:</strong> ${escapeHtml(g.members)}</span>
-                            </p>
-                        </div>
-                        <div class="flex items-center gap-2 self-start sm:self-auto">
-                            <button onclick="requestAuthForDeleteGroup(${g.id})" title="Eliminar grupo" class="p-2 text-slate-400 hover:text-rose-400 rounded-xl hover:bg-slate-800 transition-colors">
-                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            </button>
-                            <button onclick="requestAuthForAddProject(${g.id})" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition-all">
-                                <i data-lucide="plus" class="w-4 h-4"></i>
-                                <span>Agregar Proyecto</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="p-4 sm:p-5">
-                        ${g.projects.length === 0 ? `
-                            <div class="text-center py-6 border border-dashed border-slate-200 rounded-xl bg-slate-50/50">
-                                <p class="text-xs text-slate-500">Este grupo aún no registra ningún proyecto.</p>
-                                <button onclick="requestAuthForAddProject(${g.id})" class="mt-2 text-xs font-semibold text-indigo-600 hover:text-indigo-800">
-                                    + Subir el primer trabajo
-                                </button>
-                            </div>
-                        ` : `
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                ${g.projects.map(p => `
-                                    <article class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between hover:border-slate-300 transition-colors">
-                                        <div>
-                                            <div class="flex items-start justify-between gap-2 mb-2">
-                                                <span class="text-[11px] font-semibold px-2 py-0.5 rounded-md ${getCategoryBadgeColor(p.category)}">
-                                                    ${p.category}
-                                                </span>
-                                                <span class="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full ${getStatusBadgeColor(p.status)}">
-                                                    ${getStatusIcon(p.status)}
-                                                    ${p.status}
-                                                </span>
-                                            </div>
-
-                                            <h4 class="font-bold text-slate-900 text-sm leading-snug line-clamp-2 mb-2">${escapeHtml(p.title)}</h4>
-                                            <p class="text-xs text-slate-600 line-clamp-3 mb-3 leading-relaxed">
-                                                ${escapeHtml(p.description)}
-                                            </p>
-                                        </div>
-
-                                        <div class="pt-3 border-t border-slate-200/60 flex items-center justify-between">
-                                            <div class="flex items-center gap-1">
-                                                <button onclick="requestAuthForEditProject(${g.id}, ${p.id})" title="Editar" class="text-slate-400 hover:text-indigo-600 p-1">
-                                                    <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                                                </button>
-                                                <button onclick="requestAuthForDeleteProject(${g.id}, ${p.id})" title="Eliminar" class="text-slate-400 hover:text-rose-600 p-1">
-                                                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                                                </button>
-                                            </div>
-                                            <a href="${escapeHtml(p.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-indigo-700 hover:text-indigo-900">
-                                                <span>Ver Documento</span>
-                                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                                            </a>
-                                        </div>
-                                    </article>
-                                `).join('')}
-                            </div>
-                        `}
-                    </div>
-                </div>
-            `).join('');
-
-            lucide.createIcons();
-        }
-
-        function getCategoryBadgeColor(cat) {
-            switch (cat) {
-                case 'El magnetismo': return 'bg-cyan-100 text-cyan-800';
-                case 'Imanes': return 'bg-amber-100 text-amber-800';
-                case 'Electromagnetismo': return 'bg-indigo-100 text-indigo-800';
-                case 'Ley de Faraday': return 'bg-emerald-100 text-emerald-800';
-                default: return 'bg-slate-200 text-slate-800';
-            }
-        }
-
-        function getStatusBadgeColor(status) {
-            switch (status) {
-                case 'Aprobado': return 'bg-emerald-100 text-emerald-800';
-                case 'En Revisión': return 'bg-amber-100 text-amber-800';
-                case 'Entregado': return 'bg-blue-100 text-blue-800';
-                default: return 'bg-slate-100 text-slate-800';
-            }
-        }
-
-        function getStatusIcon(status) {
-            switch (status) {
-                case 'Aprobado': return '<i data-lucide="check" class="w-3 h-3"></i>';
-                case 'En Revisión': return '<i data-lucide="clock" class="w-3 h-3"></i>';
-                case 'Entregado': return '<i data-lucide="file-check" class="w-3 h-3"></i>';
-                default: return '';
-            }
-        }
-
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        function updateMetrics() {
-            document.getElementById("stat-groups").textContent = groups.length;
-            
-            const totalProjects = groups.reduce((acc, g) => acc + g.projects.length, 0);
-            document.getElementById("stat-total").textContent = totalProjects;
-
-            const allProjects = groups.flatMap(g => g.projects);
-            const aprobados = allProjects.filter(p => p.status === "Aprobado").length;
-            document.getElementById("stat-aprobados").textContent = aprobados;
-
-            const revision = allProjects.filter(p => p.status === "En Revisión").length;
-            document.getElementById("stat-revision").textContent = revision;
-        }
-
-        // SISTEMA DE AUTENTICACIÓN POR CONTRASEÑA DE GRUPO
-        function promptGroupAuth(groupId, actionCallback) {
-            const group = groups.find(g => g.id === groupId);
-            if (!group) return;
-
-            pendingAuthAction = { groupId, callback: actionCallback };
-            document.getElementById("auth-prompt-msg").textContent = `Ingresa la contraseña registrada para "${group.name}":`;
-            toggleAuthModal(true);
-        }
-
-        function toggleAuthModal(show) {
-            const modal = document.getElementById("modal-auth");
-            const container = document.getElementById("modal-auth-container");
-            if (show) {
-                modal.classList.remove("hidden");
-                setTimeout(() => {
-                    modal.classList.remove("opacity-0");
-                    container.classList.remove("scale-95");
-                    container.classList.add("scale-100");
-                }, 10);
-            } else {
-                modal.classList.add("opacity-0");
-                container.classList.remove("scale-100");
-                container.classList.add("scale-95");
-                setTimeout(() => {
-                    modal.classList.add("hidden");
-                    document.getElementById("auth-form").reset();
-                }, 200);
-            }
-        }
-
-        function handleAuthSubmit(e) {
-            e.preventDefault();
-            if (!pendingAuthAction) return;
-
-            const group = groups.find(g => g.id === pendingAuthAction.groupId);
-            const passwordEntered = document.getElementById("auth-password-input").value;
-
-            if (group && group.password === passwordEntered) {
-                toggleAuthModal(false);
-                const cb = pendingAuthAction.callback;
-                pendingAuthAction = null;
-                cb();
-            } else {
-                showToast("❌ Contraseña incorrecta. Acceso denegado.");
-            }
-        }
-
-        // ACCIONES CON SOLICITUD DE CONTRASEÑA
-        function requestAuthForAddProject(groupId) {
-            promptGroupAuth(groupId, () => {
-                openAddProjectModal(groupId);
-            });
-        }
-
-        function requestAuthForEditProject(groupId, projectId) {
-            promptGroupAuth(groupId, () => {
-                openEditProjectModal(groupId, projectId);
-            });
-        }
-
-        function requestAuthForDeleteProject(groupId, projectId) {
-            promptGroupAuth(groupId, () => {
-                const group = groups.find(g => g.id === groupId);
-                if (!group) return;
-
-                group.projects = group.projects.filter(p => p.id !== projectId);
-                renderMainView();
-                updateMetrics();
-                showToast("Proyecto eliminado correctamente.");
-            });
-        }
-
-        function requestAuthForDeleteGroup(groupId) {
-            promptGroupAuth(groupId, () => {
-                groups = groups.filter(g => g.id !== groupId);
-                renderMainView();
-                updateMetrics();
-                showToast("Grupo eliminado correctamente.");
-            });
-        }
-
-        // REGISTRAR GRUPO
-        function toggleGroupModal(show) {
-            const modal = document.getElementById("modal-group");
-            const container = document.getElementById("modal-group-container");
-            if (show) {
-                modal.classList.remove("hidden");
-                setTimeout(() => {
-                    modal.classList.remove("opacity-0");
-                    container.classList.remove("scale-95");
-                    container.classList.add("scale-100");
-                }, 10);
-            } else {
-                modal.classList.add("opacity-0");
-                container.classList.remove("scale-100");
-                container.classList.add("scale-95");
-                setTimeout(() => {
-                    modal.classList.add("hidden");
-                    document.getElementById("group-form").reset();
-                }, 200);
-            }
-        }
-
-        function handleGroupSubmit(e) {
-            e.preventDefault();
-            const name = document.getElementById("group-name-input").value.trim();
-            const members = document.getElementById("group-members-input").value.trim();
-            const password = document.getElementById("group-password-input").value;
-
-            const newGroup = {
-                id: Date.now(),
-                name,
-                members,
-                password,
-                projects: []
-            };
-
-            groups.unshift(newGroup);
-            renderMainView();
-            updateMetrics();
-            toggleGroupModal(false);
-            showToast(`¡${name} creado exitosamente! Clave registrada.`);
-        }
-
-        // AGREGAR / EDITAR PROYECTO
-        function openAddProjectModal(groupId) {
-            const group = groups.find(g => g.id === groupId);
-            if (!group) return;
-
-            document.getElementById("form-group-id").value = groupId;
-            document.getElementById("form-project-id").value = "";
-            document.getElementById("modal-project-title").textContent = `Registrar Proyecto (${group.name})`;
-            document.getElementById("project-form").reset();
-            toggleProjectModal(true);
-        }
-
-        function openEditProjectModal(groupId, projectId) {
-            const group = groups.find(g => g.id === groupId);
-            if (!group) return;
-            const project = group.projects.find(p => p.id === projectId);
-            if (!project) return;
-
-            document.getElementById("form-group-id").value = groupId;
-            document.getElementById("form-project-id").value = projectId;
-            document.getElementById("modal-project-title").textContent = `Editar Proyecto - ${group.name}`;
-            
-            document.getElementById("form-category").value = project.category;
-            document.getElementById("form-title").value = project.title;
-            document.getElementById("form-url").value = project.url;
-            document.getElementById("form-status").value = project.status;
-            document.getElementById("form-description").value = project.description;
-
-            toggleProjectModal(true);
-        }
-
-        function toggleProjectModal(show) {
-            const modal = document.getElementById("modal-project");
-            const container = document.getElementById("modal-project-container");
-            if (show) {
-                modal.classList.remove("hidden");
-                setTimeout(() => {
-                    modal.classList.remove("opacity-0");
-                    container.classList.remove("scale-95");
-                    container.classList.add("scale-100");
-                }, 10);
-            } else {
-                modal.classList.add("opacity-0");
-                container.classList.remove("scale-100");
-                container.classList.add("scale-95");
-                setTimeout(() => {
-                    modal.classList.add("hidden");
-                    document.getElementById("project-form").reset();
-                }, 200);
-            }
-        }
-
-        function handleProjectSubmit(e) {
-            e.preventDefault();
-            const groupId = parseInt(document.getElementById("form-group-id").value, 10);
-            const projectIdVal = document.getElementById("form-project-id").value;
-            const group = groups.find(g => g.id === groupId);
-            if (!group) return;
-
-            const category = document.getElementById("form-category").value;
-            const title = document.getElementById("form-title").value.trim();
-            const url = document.getElementById("form-url").value.trim();
-            const status = document.getElementById("form-status").value;
-            const description = document.getElementById("form-description").value.trim();
-
-            if (projectIdVal) {
-                // Modo Edición
-                const projectId = parseInt(projectIdVal, 10);
-                const proj = group.projects.find(p => p.id === projectId);
-                if (proj) {
-                    proj.category = category;
-                    proj.title = title;
-                    proj.url = url;
-                    proj.status = status;
-                    proj.description = description;
-                }
-                showToast(`¡Proyecto de ${group.name} actualizado!`);
-            } else {
-                // Nuevo Proyecto
-                const newProject = {
-                    id: Date.now(),
-                    category,
-                    title,
-                    url,
-                    status,
-                    description,
-                    date: new Date().toISOString().split('T')[0]
-                };
-                group.projects.unshift(newProject);
-                showToast(`¡Proyecto añadido a ${group.name}!`);
-            }
-
-            renderMainView();
-            updateMetrics();
-            toggleProjectModal(false);
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById("toast");
-            document.getElementById("toast-message").textContent = message;
-            toast.classList.remove("translate-y-20", "opacity-0");
-            setTimeout(() => {
-                toast.classList.add("translate-y-20", "opacity-0");
-            }, 3000);
-        }
-    </script>
+        <div class="stat">
+          <div>
+            <div class="stat-label">En revisión</div>
+            <div class="stat-value">12</div>
+          </div>
+          <div class="icon-box i-amber">⏱️</div>
+        </div>
+      </div>
+
+      <div class="topics">
+        <article class="topic-card">
+          <div class="topic-art">
+            <svg width="290" height="170" viewBox="0 0 290 170" aria-label="Ilustración de magnetismo">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#dbeafe"/>
+                  <stop offset="100%" stop-color="#bfdbfe"/>
+                </linearGradient>
+              </defs>
+              <rect width="290" height="170" fill="#f8fbff"/>
+              <circle cx="110" cy="85" r="52" fill="#dbeafe" opacity="0.8"/>
+              <circle cx="110" cy="85" r="23" fill="#60a5fa" opacity="0.8"/>
+              <path d="M160 40 L190 85 L160 130" stroke="#1d4ed8" stroke-width="5" fill="none"/>
+              <path d="M190 40 L220 85 L190 130" stroke="#1d4ed8" stroke-width="5" fill="none"/>
+              <path d="M86 30 C118 18, 150 18, 180 44" stroke="#0ea5e9" stroke-width="4" fill="none" opacity="0.8"/>
+              <path d="M82 140 C118 152, 150 152, 186 126" stroke="#0ea5e9" stroke-width="4" fill="none" opacity="0.8"/>
+              <circle cx="210" cy="50" r="11" fill="#facc15"/>
+              <circle cx="228" cy="120" r="11" fill="#facc15"/>
+              <circle cx="200" cy="122" r="11" fill="#facc15"/>
+            </svg>
+          </div>
+          <div class="topic-body">
+            <span class="topic-badge badge-magnetismo">Magnetismo</span>
+            <h3>Magnetismo</h3>
+            <p>
+              Estudio de campos magnéticos, fuerza sobre cargas y materiales ferromagnéticos,
+              con aplicaciones en motores, sensores y equipos de medición.
+            </p>
+          </div>
+        </article>
+
+        <article class="topic-card">
+          <div class="topic-art">
+            <svg width="290" height="170" viewBox="0 0 290 170" aria-label="Ilustración de imanes">
+              <rect width="290" height="170" fill="#fffaf0"/>
+              <g transform="translate(20,15)">
+                <rect x="26" y="20" width="70" height="115" rx="12" fill="#fbbf24" opacity="0.7"/>
+                <rect x="150" y="20" width="70" height="115" rx="12" fill="#f59e0b" opacity="0.8"/>
+                <path d="M44 55 Q85 20 122 55" stroke="#78350f" stroke-width="6" fill="none"/>
+                <path d="M44 100 Q85 135 122 100" stroke="#78350f" stroke-width="6" fill="none"/>
+                <path d="M148 55 Q190 20 230 55" stroke="#7c2d12" stroke-width="6" fill="none"/>
+                <path d="M148 100 Q190 135 230 100" stroke="#7c2d12" stroke-width="6" fill="none"/>
+                <circle cx="122" cy="78" r="8" fill="#fef3c7"/>
+                <circle cx="148" cy="78" r="8" fill="#fef3c7"/>
+                <path d="M122 45 L122 110" stroke="#7c2d12" stroke-width="4"/>
+                <path d="M148 45 L148 110" stroke="#7c2d12" stroke-width="4"/>
+              </g>
+            </svg>
+          </div>
+          <div class="topic-body">
+            <span class="topic-badge badge-imanes">Imanes</span>
+            <h3>Imanes</h3>
+            <p>
+              Observación del comportamiento de campos magnéticos, polaridad y su uso en
+              sistemas de levitación, dispositivos de medición y experimentos de laboratorio.
+            </p>
+          </div>
+        </article>
+
+        <article class="topic-card">
+          <div class="topic-art">
+            <svg width="290" height="170" viewBox="0 0 290 170" aria-label="Ilustración de electromagnetismo">
+              <rect width="290" height="170" fill="#f5f3ff"/>
+              <circle cx="88" cy="85" r="44" fill="#c7d2fe" opacity="0.7"/>
+              <circle cx="88" cy="85" r="16" fill="#4f46e5" opacity="0.9"/>
+              <path d="M122 85 H208" stroke="#4f46e5" stroke-width="7" stroke-linecap="round"/>
+              <path d="M228 50 L258 85 L228 120" stroke="#0ea5e9" stroke-width="6" fill="none"/>
+              <path d="M146 40 L176 40" stroke="#0ea5e9" stroke-width="5"/>
+              <path d="M146 130 L176 130" stroke="#0ea5e9" stroke-width="5"/>
+              <path d="M120 142 C150 122, 176 122, 206 142" stroke="#0ea5e9" stroke-width="4" fill="none"/>
+              <path d="M134 52 C170 26, 216 26, 228 63" stroke="#0ea5e9" stroke-width="3" fill="none" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="topic-body">
+            <span class="topic-badge badge-electromagnetismo">Electromagnetismo</span>
+            <h3>Electromagnetismo</h3>
+            <p>
+              Relación entre electricidad y magnetismo, corrientes, fuerza de Lorentz y la
+              base de motores, generadores y sistemas de transmisión energética.
+            </p>
+          </div>
+        </article>
+
+        <article class="topic-card">
+          <div class="topic-art">
+            <svg width="290" height="170" viewBox="0 0 290 170" aria-label="Ilustración de la ley de Faraday">
+              <rect width="290" height="170" fill="#f0fdf4"/>
+              <circle cx="84" cy="85" r="42" fill="#bbf7d0" opacity="0.8"/>
+              <circle cx="84" cy="85" r="16" fill="#16a34a" opacity="0.88"/>
+              <path d="M120 85 H208" stroke="#16a34a" stroke-width="6" stroke-linecap="round"/>
+              <path d="M146 44 L146 126" stroke="#16a34a" stroke-width="5"/>
+              <path d="M170 44 L170 126" stroke="#16a34a" stroke-width="5"/>
+              <path d="M205 46 Q236 74 205 122" stroke="#22c55e" stroke-width="5" fill="none"/>
+              <path d="M222 44 L256 84 L222 126" stroke="#15803d" stroke-width="6" fill="none"/>
+              <path d="M118 142 C150 116, 192 116, 228 142" stroke="#15803d" stroke-width="4" fill="none" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="topic-body">
+            <span class="topic-badge badge-faraday">Ley de Faraday</span>
+            <h3>Ley de Faraday</h3>
+            <p>
+              Inducción electromagnética, variación del flujo magnético y su relación con la
+              generación de corriente eléctrica en sistemas experimentales.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <div class="side-card">
+        <h3>Colaboradores</h3>
+        <ul class="collaborators">
+          <li>AMASIFEN PIZANGO FIORELLA</li>
+          <li>BENANCIO BENAVIDES JUBER BRAD</li>
+          <li>CALLE SORIA MARÍA MERCEDES</li>
+          <li>CANAQUIRI CAINAMARI ROMEL ANTONY</li>
+          <li>CARLOS PEREZ HAROLD JERVIS</li>
+          <li>CASTERNOQUE PEÑA MARTHA ANTONIA</li>
+          <li>CASTILLA CADENILLAS MAURO GERARDO</li>
+          <li>CASTRO SALDAÑA JEAN PIERRE</li>
+          <li>CHAVEZ VARGAS FRANK LUIS</li>
+          <li>GARCÍA LÓPEZ MOISÉS ALEXIS</li>
+          <li>GARCÍA PINEDO ALESSADRO</li>
+          <li>HUAMAN VASQUEZ ANGELA CELESTE</li>
+          <li>HUIÑAPI SANCHEZ JHON KENEDY</li>
+          <li>LIZANA VARGAS OGANDE ARIANA</li>
+          <li>MUCUSHUA CHUMBE ALIZ DALILA</li>
+          <li>MURAYARI CARIAJANO ISAAC</li>
+          <li>OJANAMA MOSQUEDA LOT ER</li>
+          <li>OLORTEGUI VALLES CARLOS MIGUEL</li>
+          <li>PEREZ MANIHUARI KEVIN RAFAEL</li>
+          <li>PIZANGO PAIMA EMANUEL</li>
+          <li>PIZANGO PIZANGO FREDY FRANK</li>
+          <li>RIOS PINEDO SHAROLL BALVIN</li>
+          <li>ROJAS LOPEZ LYTTLETON BUDY ROBERTHD</li>
+          <li>SHAPIAMA TORRES LEONIDAS</li>
+          <li>TAMINCHE LANCHA EDSON ALDAIR</li>
+          <li>TANGOA PIZANGO SHIRLEY GISSELA</li>
+          <li>TORRES YUPE JHONY</li>
+          <li>VASQUEZ SOBERON MASSIMO ROBERTO</li>
+          <li>VELASQUEZ LOPEZ MIA MARICIELO</li>
+          <li>VIENA HUAMAN LADYS MILENA</li>
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <h3>Logo del proyecto</h3>
+        <div class="logo-box">
+          <div class="logo">
+            <span class="logo-icon">⚛️</span>
+            <span>Mi Logo</span>
+          </div>
+        </div>
+        <div class="small-note">
+          Reemplaza este bloque con tu imagen real cuando la tengas.
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    <div class="container footer-wrap">
+      <div class="footer-logo">
+        <div class="mark">⚛️</div>
+        <span>Física III • Proyectos de Investigación</span>
+      </div>
+      <div>© 2026 • Todos los derechos reservados</div>
+    </div>
+  </footer>
 </body>
 </html>
