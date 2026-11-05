@@ -4,39 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Almacén de Proyectos - Física III</title>
-    <!-- Tailwind CSS CDN -->
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
-
-    <!-- HEADER DE NAVEGACIÓN -->
     <header class="bg-indigo-900 text-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <!-- Título y Rol -->
                 <div class="flex items-center space-x-3">
                     <div class="p-2.5 bg-indigo-700/60 rounded-xl border border-indigo-500/30">
                         <i data-lucide="atom" class="w-8 h-8 text-cyan-300"></i>
@@ -53,9 +37,8 @@
                     </div>
                 </div>
 
-                <!-- Botón de Acción Principal -->
                 <div class="flex items-center gap-3">
-                    <button onclick="toggleGroupModal(true)" class="inline-flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold px-4 py-2.5 rounded-xl shadow-lg shadow-cyan-500/20 transition-all duration-200 text-sm active:scale-95">
+                    <button onclick="toggleGroupModal(true)" class="inline-flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold px-4 py-2.5 rounded-xl shadow-lg">
                         <i data-lucide="users-plus" class="w-5 h-5"></i>
                         <span>Registrar Grupo</span>
                     </button>
@@ -64,10 +47,7 @@
         </div>
     </header>
 
-    <!-- CONTENIDO PRINCIPAL -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
-
-        <!-- NAVEGACIÓN POR PESTAÑAS (VISTAS) -->
         <div class="flex items-center space-x-2 border-b border-slate-200 mb-6">
             <button id="tab-projects-btn" onclick="switchMainView('projects')" class="flex items-center gap-2 px-4 py-3 font-semibold text-sm border-b-2 border-indigo-600 text-indigo-600 transition-colors">
                 <i data-lucide="file-text" class="w-4 h-4"></i>
@@ -79,9 +59,7 @@
             </button>
         </div>
 
-        <!-- RESUMEN / MÉTRICAS DEL COORDINADOR -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <!-- Metric 1 -->
             <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Grupos Registrados</p>
@@ -92,7 +70,6 @@
                 </div>
             </div>
 
-            <!-- Metric 2 -->
             <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Total Proyectos</p>
@@ -103,7 +80,6 @@
                 </div>
             </div>
 
-            <!-- Metric 3 -->
             <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Aprobados</p>
@@ -114,7 +90,6 @@
                 </div>
             </div>
 
-            <!-- Metric 4 -->
             <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">En Revisión</p>
@@ -126,22 +101,19 @@
             </div>
         </section>
 
-        <!-- FILTROS Y BÚSQUEDA -->
         <section class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm mb-8 space-y-4">
             <div class="flex flex-col lg:flex-row gap-4 justify-between items-stretch lg:items-center">
-                <!-- Buscador -->
                 <div class="relative flex-1">
                     <i data-lucide="search" class="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                    <input 
-                        type="text" 
-                        id="search-input" 
+                    <input
+                        type="text"
+                        id="search-input"
                         oninput="renderMainView()"
-                        placeholder="Buscar por grupo, integrante o título de proyecto..." 
-                        class="w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-slate-400"
+                        placeholder="Buscar por grupo, integrante o título de proyecto..."
+                        class="w-full pl-11 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                     >
                 </div>
 
-                <!-- Filtro por Estado -->
                 <div class="flex items-center gap-2">
                     <span class="text-xs font-semibold text-slate-500 uppercase">Estado:</span>
                     <select id="status-filter" onchange="renderMainView()" class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500">
@@ -153,16 +125,12 @@
                 </div>
             </div>
 
-            <!-- Categorías / Temas de Física III -->
             <div class="flex items-center gap-2 overflow-x-auto pb-2 pt-2 scrollbar-none border-t border-slate-100">
                 <span class="text-xs font-semibold text-slate-400 uppercase mr-2 whitespace-nowrap">Temas:</span>
-                <div id="category-buttons" class="flex items-center gap-2">
-                    <!-- Dinámico via JS -->
-                </div>
+                <div id="category-buttons" class="flex items-center gap-2"></div>
             </div>
         </section>
 
-        <!-- SECCIÓN 1: VISTA DE TODOS LOS PROYECTOS (PRINCIPAL) -->
         <section id="projects-view-section">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -171,9 +139,7 @@
                 </h2>
             </div>
 
-            <div id="projects-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                <!-- Tarjetas de proyectos compilados -->
-            </div>
+            <div id="projects-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
 
             <div id="projects-empty-state" class="hidden text-center py-16 bg-white rounded-2xl border border-dashed border-slate-300">
                 <div class="inline-flex p-4 bg-slate-100 rounded-full text-slate-400 mb-4">
@@ -184,7 +150,6 @@
             </div>
         </section>
 
-        <!-- SECCIÓN 2: VISTA DE GRUPOS DE TRABAJO -->
         <section id="groups-view-section" class="hidden">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -193,9 +158,7 @@
                 </h2>
             </div>
 
-            <div id="groups-container" class="space-y-6">
-                <!-- Se poblará dinámicamente -->
-            </div>
+            <div id="groups-container" class="space-y-6"></div>
 
             <div id="empty-state" class="hidden text-center py-16 bg-white rounded-2xl border border-dashed border-slate-300">
                 <div class="inline-flex p-4 bg-slate-100 rounded-full text-slate-400 mb-4">
@@ -203,7 +166,7 @@
                 </div>
                 <h3 class="text-lg font-semibold text-slate-800">No hay grupos registrados</h3>
                 <p class="text-slate-500 text-sm max-w-sm mx-auto mt-1">Registra primero un grupo de estudiantes para luego adjuntar sus proyectos.</p>
-                <button onclick="toggleGroupModal(true)" class="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 px-4 py-2 rounded-xl border border-indigo-100">
+                <button onclick="toggleGroupModal(true)" class="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 px-4 py-2 rounded-xl">
                     <i data-lucide="plus-circle" class="w-4 h-4"></i>
                     Registrar Primer Grupo
                 </button>
@@ -211,7 +174,6 @@
         </section>
     </main>
 
-    <!-- MODAL 1: REGISTRAR GRUPO CON CONTRASEÑA -->
     <div id="modal-group" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden transition-opacity duration-200 opacity-0">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 max-w-lg w-full overflow-hidden transform transition-all scale-95 duration-200" id="modal-group-container">
             <div class="bg-indigo-900 text-white px-6 py-4 flex items-center justify-between">
@@ -227,17 +189,17 @@
             <form id="group-form" onsubmit="handleGroupSubmit(event)" class="p-6 space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nombre o Número de Grupo *</label>
-                    <input type="text" id="group-name-input" required placeholder="Ej. Grupo 01 - Equipo Alfa" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
+                    <input type="text" id="group-name-input" required placeholder="Ej. Grupo 01 - Equipo Alfa" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Integrantes del Grupo *</label>
-                    <textarea id="group-members-input" rows="2" required placeholder="Lista de integrantes (Ej. Carlos Mendoza, Ana Torres, Pedro Gómez)" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none resize-none"></textarea>
+                    <textarea id="group-members-input" rows="2" required placeholder="Lista de integrantes (Ej. Carlos Mendoza, Ana Torres, Pedro Gómez)" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"></textarea>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Contraseña del Grupo *</label>
-                    <input type="password" id="group-password-input" required placeholder="Contraseña para gestionar este grupo" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
+                    <input type="password" id="group-password-input" required placeholder="Contraseña para gestionar este grupo" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500">
                     <p class="text-[11px] text-slate-500 mt-1">Guarda esta contraseña. Se requerirá para agregar, editar o eliminar contenidos del grupo.</p>
                 </div>
 
@@ -249,7 +211,6 @@
         </div>
     </div>
 
-    <!-- MODAL 2: REGISTRAR / EDITAR PROYECTO -->
     <div id="modal-project" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden transition-opacity duration-200 opacity-0">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 max-w-lg w-full overflow-hidden transform transition-all scale-95 duration-200" id="modal-project-container">
             <div class="bg-indigo-900 text-white px-6 py-4 flex items-center justify-between">
@@ -268,7 +229,7 @@
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Categoría / Tema de Física III *</label>
-                    <select id="form-category" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
+                    <select id="form-category" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500">
                         <option value="">Seleccionar Tema...</option>
                         <option value="El magnetismo">El magnetismo</option>
                         <option value="Imanes">Imanes</option>
@@ -279,17 +240,17 @@
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Título del Proyecto *</label>
-                    <input type="text" id="form-title" required placeholder="Ej. Medición del Campo Magnético en Solenoides" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
+                    <input type="text" id="form-title" required placeholder="Ej. Medición del Campo Magnético en Solenoides" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Enlace del Documento (URL) *</label>
-                        <input type="url" id="form-url" required placeholder="https://drive.google.com/..." class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
+                        <input type="url" id="form-url" required placeholder="https://drive.google.com/..." class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Estado de Entrega</label>
-                        <select id="form-status" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
+                        <select id="form-status" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500">
                             <option value="Entregado">Entregado</option>
                             <option value="En Revisión">En Revisión</option>
                             <option value="Aprobado">Aprobado</option>
@@ -299,7 +260,7 @@
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Resumen / Descripción corta *</label>
-                    <textarea id="form-description" rows="3" required placeholder="Breve síntesis del objetivo, metodología y resultados..." class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none resize-none"></textarea>
+                    <textarea id="form-description" rows="3" required placeholder="Breve síntesis del objetivo, metodología y resultados..." class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"></textarea>
                 </div>
 
                 <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
@@ -310,7 +271,6 @@
         </div>
     </div>
 
-    <!-- MODAL 3: SOLICITAR CONTRASEÑA DE CONFIRMACIÓN -->
     <div id="modal-auth" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden transition-opacity duration-200 opacity-0">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 max-w-sm w-full overflow-hidden transform transition-all scale-95 duration-200" id="modal-auth-container">
             <div class="bg-slate-900 text-white px-5 py-4 flex items-center justify-between">
@@ -326,7 +286,7 @@
             <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="p-5 space-y-4">
                 <p id="auth-prompt-msg" class="text-xs text-slate-600">Ingresa la contraseña del grupo para autorizar la acción.</p>
                 <div>
-                    <input type="password" id="auth-password-input" required placeholder="Contraseña de grupo" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:outline-none">
+                    <input type="password" id="auth-password-input" required placeholder="Contraseña de grupo" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500">
                 </div>
 
                 <div class="flex items-center justify-end gap-2 pt-2">
@@ -337,29 +297,23 @@
         </div>
     </div>
 
-    <!-- TOAST DE NOTIFICACIÓN -->
     <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-300 z-50">
         <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
         <span id="toast-message" class="text-sm font-medium">¡Operación completada!</span>
     </div>
 
-    <!-- FOOTER -->
     <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-center text-xs mt-auto">
         <div class="max-w-7xl mx-auto px-4">
             <p>© 2026 Coordinación de Física III — Sistema de Gestión de Trabajos Académicos</p>
         </div>
     </footer>
 
-    <!-- LÓGICA EN JAVASCRIPT -->
     <script>
-        // ESTADO GLOBAL
         let groups = [];
-        let activeView = "projects"; // 'projects' o 'groups'
+        let activeView = "projects";
         const categories = ["Todas", "El magnetismo", "Imanes", "Electromagnetismo", "Ley de Faraday"];
         let currentCategory = "Todas";
-
-        // Acción pendiente tras autenticación
-        let pendingAuthAction = null; 
+        let pendingAuthAction = null;
 
         document.addEventListener("DOMContentLoaded", () => {
             renderCategoryButtons();
@@ -392,11 +346,11 @@
         function renderCategoryButtons() {
             const container = document.getElementById("category-buttons");
             container.innerHTML = categories.map(cat => `
-                <button 
-                    onclick="selectCategory('${cat}')" 
+                <button
+                    onclick="selectCategory('${cat}')"
                     class="px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-150 ${
-                        currentCategory === cat 
-                            ? 'bg-indigo-900 text-white shadow-sm' 
+                        currentCategory === cat
+                            ? 'bg-indigo-900 text-white shadow-sm'
                             : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                     }"
                 >
@@ -419,14 +373,12 @@
             }
         }
 
-        // RENDER VISTA DE PROYECTOS (PRINCIPAL)
         function renderProjectsList() {
             const searchVal = document.getElementById("search-input").value.toLowerCase();
             const statusVal = document.getElementById("status-filter").value;
             const container = document.getElementById("projects-list-container");
             const emptyState = document.getElementById("projects-empty-state");
 
-            // Recopilar todos los proyectos adjuntando la información de su grupo asignado
             let allProjects = [];
             groups.forEach(g => {
                 g.projects.forEach(p => {
@@ -463,7 +415,6 @@
             container.innerHTML = filteredProjects.map(p => `
                 <article class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5 flex flex-col justify-between hover:shadow-md transition-all">
                     <div>
-                        <!-- Header del Proyecto con Badge de Grupo -->
                         <div class="flex items-center justify-between gap-2 mb-3">
                             <span class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-900 bg-indigo-50 border border-indigo-100 px-2.5 py-1 rounded-lg">
                                 <i data-lucide="users" class="w-3.5 h-3.5 text-indigo-600"></i>
@@ -475,14 +426,12 @@
                             </span>
                         </div>
 
-                        <!-- Categoría -->
                         <div class="mb-2">
                             <span class="text-[11px] font-semibold px-2 py-0.5 rounded-md ${getCategoryBadgeColor(p.category)}">
                                 ${p.category}
                             </span>
                         </div>
 
-                        <!-- Título y Descripción -->
                         <h3 class="font-bold text-slate-900 text-base leading-snug mb-2">${escapeHtml(p.title)}</h3>
                         <p class="text-xs text-slate-600 line-clamp-3 mb-4 leading-relaxed">
                             ${escapeHtml(p.description)}
@@ -498,7 +447,7 @@
                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                             </button>
                         </div>
-                        <a href="${escapeHtml(p.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-100">
+                        <a href="${escapeHtml(p.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-800">
                             <span>Ver Documento</span>
                             <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                         </a>
@@ -509,7 +458,6 @@
             lucide.createIcons();
         }
 
-        // RENDER VISTA DE GRUPOS
         function renderGroups() {
             const searchVal = document.getElementById("search-input").value.toLowerCase();
             const statusVal = document.getElementById("status-filter").value;
@@ -517,11 +465,11 @@
             const emptyState = document.getElementById("empty-state");
 
             const filteredGroups = groups.filter(g => {
-                const matchesSearch = g.name.toLowerCase().includes(searchVal) || 
+                const matchesSearch = g.name.toLowerCase().includes(searchVal) ||
                                       g.members.toLowerCase().includes(searchVal) ||
                                       g.projects.some(p => p.title.toLowerCase().includes(searchVal) || p.description.toLowerCase().includes(searchVal));
 
-                const matchesCategory = currentCategory === "Todas" || 
+                const matchesCategory = currentCategory === "Todas" ||
                                         g.projects.some(p => p.category === currentCategory);
 
                 let matchesStatus = true;
@@ -562,7 +510,7 @@
                             <button onclick="requestAuthForDeleteGroup(${g.id})" title="Eliminar grupo" class="p-2 text-slate-400 hover:text-rose-400 rounded-xl hover:bg-slate-800 transition-colors">
                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                             </button>
-                            <button onclick="requestAuthForAddProject(${g.id})" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition-all">
+                            <button onclick="requestAuthForAddProject(${g.id})" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3.5 py-2 rounded-xl">
                                 <i data-lucide="plus" class="w-4 h-4"></i>
                                 <span>Agregar Proyecto</span>
                             </button>
@@ -663,7 +611,7 @@
 
         function updateMetrics() {
             document.getElementById("stat-groups").textContent = groups.length;
-            
+
             const totalProjects = groups.reduce((acc, g) => acc + g.projects.length, 0);
             document.getElementById("stat-total").textContent = totalProjects;
 
@@ -675,7 +623,6 @@
             document.getElementById("stat-revision").textContent = revision;
         }
 
-        // SISTEMA DE AUTENTICACIÓN POR CONTRASEÑA DE GRUPO
         function promptGroupAuth(groupId, actionCallback) {
             const group = groups.find(g => g.id === groupId);
             if (!group) return;
@@ -723,7 +670,6 @@
             }
         }
 
-        // ACCIONES CON SOLICITUD DE CONTRASEÑA
         function requestAuthForAddProject(groupId) {
             promptGroupAuth(groupId, () => {
                 openAddProjectModal(groupId);
@@ -757,7 +703,6 @@
             });
         }
 
-        // REGISTRAR GRUPO
         function toggleGroupModal(show) {
             const modal = document.getElementById("modal-group");
             const container = document.getElementById("modal-group-container");
@@ -800,7 +745,6 @@
             showToast(`¡${name} creado exitosamente! Clave registrada.`);
         }
 
-        // AGREGAR / EDITAR PROYECTO
         function openAddProjectModal(groupId) {
             const group = groups.find(g => g.id === groupId);
             if (!group) return;
@@ -821,7 +765,7 @@
             document.getElementById("form-group-id").value = groupId;
             document.getElementById("form-project-id").value = projectId;
             document.getElementById("modal-project-title").textContent = `Editar Proyecto - ${group.name}`;
-            
+
             document.getElementById("form-category").value = project.category;
             document.getElementById("form-title").value = project.title;
             document.getElementById("form-url").value = project.url;
@@ -866,7 +810,6 @@
             const description = document.getElementById("form-description").value.trim();
 
             if (projectIdVal) {
-                // Modo Edición
                 const projectId = parseInt(projectIdVal, 10);
                 const proj = group.projects.find(p => p.id === projectId);
                 if (proj) {
@@ -878,7 +821,6 @@
                 }
                 showToast(`¡Proyecto de ${group.name} actualizado!`);
             } else {
-                // Nuevo Proyecto
                 const newProject = {
                     id: Date.now(),
                     category,
