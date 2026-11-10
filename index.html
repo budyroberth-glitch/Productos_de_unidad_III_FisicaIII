@@ -9,10 +9,10 @@
       --bg: #f4f7fb;
       --panel: #ffffff;
       --panel-alt: #eef4ff;
-      --primary: #1d4ed8;
-      --primary-dark: #172554;
+      --primary: #2563eb;
+      --primary-dark: #10254a;
       --primary-soft: #dbeafe;
-      --accent: #06b6d4;
+      --accent: #0891b2;
       --accent-soft: #cffafe;
       --green: #16a34a;
       --green-soft: #dcfce7;
@@ -28,14 +28,36 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #edf4ff 0%, #f8fafc 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(ellipse at 10% 0%, rgba(191, 219, 254, 0.45), transparent 34rem),
+        linear-gradient(180deg, #f8fbff 0%, #f4f7fb 100%);
       color: var(--text);
     }
+
+    .skip-link {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 10;
+      transform: translateY(-160%);
+      border-radius: 10px;
+      padding: 10px 14px;
+      background: #fff;
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .skip-link:focus { transform: translateY(0); }
 
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    a:focus-visible {
+      outline: 3px solid #67e8f9;
+      outline-offset: 4px;
     }
 
     .container {
@@ -45,9 +67,11 @@
     }
 
     header {
-      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      background:
+        radial-gradient(circle at 85% 0%, rgba(34, 211, 238, 0.2), transparent 24rem),
+        linear-gradient(125deg, #10254a 0%, #173c78 58%, #1d4ed8 100%);
       color: white;
-      padding: 26px 0 30px;
+      padding: 22px 0 18px;
       box-shadow: var(--shadow);
     }
 
@@ -66,27 +90,30 @@
     }
 
     .brand-mark {
-      width: 54px;
-      height: 54px;
-      border-radius: 16px;
+      width: 58px;
+      height: 58px;
+      flex: 0 0 58px;
+      border-radius: 18px;
       background: rgba(255,255,255,0.12);
       border: 1px solid rgba(255,255,255,0.22);
       display: grid;
       place-items: center;
-      font-size: 28px;
+      font-size: 30px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
     }
 
     .brand h1 {
       margin: 0;
-      font-size: clamp(1.5rem, 2vw, 2.3rem);
+      font-size: clamp(1.35rem, 2.5vw, 2.15rem);
       line-height: 1.2;
+      letter-spacing: -0.035em;
     }
 
     .brand small {
       display: block;
       color: #dbeafe;
-      font-size: 0.8rem;
-      margin-top: 4px;
+      font-size: 0.82rem;
+      margin-top: 6px;
       letter-spacing: 0.04em;
     }
 
@@ -104,11 +131,33 @@
       letter-spacing: 0.04em;
     }
 
+    .site-nav {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .site-nav a {
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 8px 14px;
+      color: #e7f0ff;
+      font-size: 0.86rem;
+      font-weight: 700;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .site-nav a:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.45);
+    }
+
     .main-layout {
       display: grid;
       grid-template-columns: minmax(0, 2.5fr) minmax(260px, 0.9fr);
-      gap: 28px;
-      padding: 32px 0 40px;
+      gap: 30px;
+      padding: 36px 0 48px;
     }
 
     .content { min-width: 0; }
@@ -118,15 +167,42 @@
       border: 1px solid var(--border);
       border-radius: 26px;
       box-shadow: var(--shadow);
-      padding: 26px;
-      margin-bottom: 28px;
+      padding: clamp(24px, 4vw, 42px);
+      margin-bottom: 24px;
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(circle at 92% 18%, rgba(191, 219, 254, 0.55), transparent 15rem),
+        var(--panel);
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: var(--primary);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 22px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--accent);
     }
 
     .hero h2 {
-      margin: 0 0 12px;
+      max-width: 18ch;
+      margin: 0 0 14px;
       font-size: clamp(1.6rem, 2vw, 2.5rem);
       line-height: 1.2;
       color: var(--text);
+      letter-spacing: -0.04em;
     }
 
     .hero p {
@@ -137,27 +213,67 @@
       max-width: 70ch;
     }
 
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 9px 15px;
+      color: var(--text);
+      background: #fff;
+      font-size: 0.88rem;
+      font-weight: 750;
+      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+
+    .button-primary {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.2);
+    }
+
+    .button-primary:hover { background: #1d4ed8; }
+
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(150px, 1fr));
-      gap: 16px;
-      margin-bottom: 28px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 32px;
     }
 
     .stat {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 18px 16px;
+      border-radius: 18px;
+      padding: 17px 15px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       box-shadow: var(--shadow);
+      gap: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .stat:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.11);
     }
 
     .stat-label {
       color: var(--muted);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       font-weight: 700;
@@ -167,12 +283,14 @@
       font-size: clamp(1.5rem, 2vw, 2.2rem);
       font-weight: 800;
       margin-top: 6px;
+      letter-spacing: -0.04em;
     }
 
     .icon-box {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
+      width: 44px;
+      height: 44px;
+      flex: 0 0 44px;
+      border-radius: 13px;
       display: grid;
       place-items: center;
       font-size: 22px;
@@ -185,47 +303,77 @@
 
     .topics {
       display: grid;
-      grid-template-columns: repeat(2, minmax(240px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
     }
 
     .topic-card {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 24px;
+      border-radius: 21px;
       overflow: hidden;
       box-shadow: var(--shadow);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
     }
 
     .topic-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 32px rgba(15, 23, 42, 0.12);
+      transform: translateY(-4px);
+      border-color: #bfdbfe;
+      box-shadow: 0 22px 36px rgba(15, 23, 42, 0.13);
     }
 
     .topic-art {
-      height: 180px;
+      height: clamp(150px, 16vw, 180px);
       background: linear-gradient(135deg, var(--panel-alt), #f8fbff);
       border-bottom: 1px solid var(--border);
       display: grid;
       place-items: center;
       overflow: hidden;
+      padding: 8px;
+    }
+
+    .topic-art svg {
+      display: block;
+      width: min(100%, 290px);
+      height: auto;
+    }
+
+    .topic-art img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image-credit {
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.72rem;
+      line-height: 1.45;
+    }
+
+    .image-credit a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
 
     .topic-body {
-      padding: 18px 18px 20px;
+      padding: 18px 19px 21px;
     }
 
     .topic-body h3 {
-      margin: 0 0 10px;
-      font-size: 1.2rem;
+      margin: 0 0 9px;
+      font-size: 1.12rem;
       color: var(--text);
+      letter-spacing: -0.02em;
     }
 
     .topic-body p {
       margin: 0;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.65;
       font-size: 0.92rem;
     }
 
@@ -237,12 +385,192 @@
       font-weight: 800;
       margin-bottom: 12px;
       letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
     .badge-magnetismo { background: var(--accent-soft); color: #0f766e; }
     .badge-imanes { background: var(--amber-soft); color: #92400e; }
     .badge-electromagnetismo { background: var(--primary-soft); color: var(--primary); }
     .badge-faraday { background: var(--green-soft); color: #166534; }
+
+    .science-note {
+      margin-top: 12px;
+      border-left: 3px solid var(--primary-soft);
+      padding: 8px 0 8px 12px;
+      color: #334b69;
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .science-note strong { color: var(--text); }
+
+    .registration {
+      margin-top: 30px;
+      padding: clamp(20px, 3vw, 30px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .registration-heading {
+      margin-bottom: 20px;
+    }
+
+    .registration-heading h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.35rem, 2vw, 1.75rem);
+      letter-spacing: -0.035em;
+    }
+
+    .registration-heading p,
+    .local-notice {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .registration-heading p { margin: 0; }
+
+    .local-notice {
+      margin: 16px 0 20px;
+      padding: 12px 14px;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      background: #eff6ff;
+    }
+
+    .submission-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .form-field-full { grid-column: 1 / -1; }
+
+    .form-field label {
+      color: var(--text);
+      font-size: 0.86rem;
+      font-weight: 750;
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid #cbd8e8;
+      border-radius: 11px;
+      padding: 10px 12px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      font-size: 0.9rem;
+    }
+
+    .form-field textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-field input:focus-visible,
+    .form-field select:focus-visible,
+    .form-field textarea:focus-visible {
+      outline: 3px solid #bfdbfe;
+      border-color: var(--primary);
+    }
+
+    .field-help {
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+
+    .upload-summary {
+      min-height: 1.2em;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .upload-summary[data-kind="error"] { color: #b91c1c; }
+
+    .submission-form .button {
+      justify-self: start;
+      cursor: pointer;
+    }
+
+    .form-message {
+      min-height: 1.4em;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .form-message[data-kind="error"] { color: #b91c1c; }
+    .form-message[data-kind="success"] { color: #166534; }
+
+    .submissions {
+      margin-top: 26px;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+
+    .submissions h3 {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+    }
+
+    .submission-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .submission-item {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      background: #f8fafc;
+    }
+
+    .submission-item h4 {
+      margin: 0 0 6px;
+      font-size: 0.96rem;
+    }
+
+    .submission-meta {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .submission-files {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .file-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 6px 10px;
+      background: #fff;
+      color: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
 
     .sidebar {
       display: flex;
@@ -253,7 +581,7 @@
     .side-card {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 22px;
+      border-radius: 21px;
       box-shadow: var(--shadow);
       padding: 22px 18px;
     }
@@ -270,7 +598,7 @@
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .collaborators li {
@@ -280,7 +608,14 @@
       background: #f8fafc;
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 9px 10px;
+      padding: 9px 11px;
+      overflow-wrap: anywhere;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .collaborators li:hover {
+      background: #eff6ff;
+      border-color: #bfdbfe;
     }
 
     .logo-box {
@@ -325,9 +660,9 @@
     }
 
     footer {
-      background: #0f172a;
+      background: #10254a;
       color: #dfeaf7;
-      padding: 22px 0;
+      padding: 24px 0;
       border-top: 1px solid rgba(255,255,255,0.08);
     }
 
@@ -360,39 +695,93 @@
     @media (max-width: 980px) {
       .main-layout {
         grid-template-columns: 1fr;
+        gap: 24px;
       }
 
       .sidebar {
         order: 2;
       }
-
-      .topics {
-        grid-template-columns: 1fr;
-      }
     }
 
     @media (max-width: 700px) {
-      .stats-grid {
-        grid-template-columns: repeat(2, minmax(140px, 1fr));
+      .container { padding-left: 18px; padding-right: 18px; }
+
+      header { padding-top: 18px; }
+
+      .topbar { gap: 14px; }
+
+      .brand { gap: 12px; }
+
+      .brand-mark {
+        width: 50px;
+        height: 50px;
+        flex-basis: 50px;
+        border-radius: 15px;
       }
+
+      .chip { font-size: 0.72rem; }
+
+      .site-nav {
+        justify-content: flex-start;
+        margin-top: 16px;
+      }
+
+      .main-layout { padding-top: 24px; }
+
+      .hero { border-radius: 21px; }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+
+      .submission-form { grid-template-columns: 1fr; }
+
+      .form-field-full { grid-column: auto; }
     }
 
     @media (max-width: 500px) {
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-
       .topbar {
         align-items: flex-start;
+      }
+
+      .chip { max-width: 100%; }
+
+      .topics { grid-template-columns: 1fr; }
+
+      .topic-art { height: 170px; }
+
+      .footer-wrap { align-items: flex-start; }
+
+      .footer-wrap > div:last-child { font-size: 0.82rem; }
+    }
+
+    @media (max-width: 360px) {
+      .container { padding-left: 14px; padding-right: 14px; }
+
+      .stats-grid { grid-template-columns: 1fr; }
+
+      .site-nav a { padding: 8px 11px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header>
     <div class="container topbar">
       <div class="brand">
-        <div class="brand-mark">⚛️</div>
+        <div class="brand-mark" aria-hidden="true">⚛️</div>
         <div>
           <h1>Almacén de Proyectos</h1>
           <small>Física III • Curso de investigación y experimentación</small>
@@ -401,11 +790,17 @@
 
       <div class="chip">📘 Tema del curso: Fuerza, campo y energía</div>
     </div>
+    <nav class="container site-nav" aria-label="Navegación principal">
+      <a href="#temas">Temas</a>
+      <a href="#registro">Registrar grupo</a>
+      <a href="#colaboradores">Colaboradores</a>
+    </nav>
   </header>
 
-  <main class="container main-layout">
+  <main class="container main-layout" id="contenido">
     <section class="content">
       <div class="hero">
+        <span class="hero-kicker">Aprende · Investiga · Experimenta</span>
         <h2>Explora los temas clave de Física III</h2>
         <p>
           Este espacio reúne proyectos, ideas y análisis sobre temas fundamentales del curso:
@@ -413,13 +808,18 @@
           para apoyar el aprendizaje práctico, la investigación y la presentación académica de
           cada grupo.
         </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#temas">Explorar temas <span aria-hidden="true">&nbsp;↓</span></a>
+          <a class="button" href="#registro">Registrar grupo</a>
+          <a class="button" href="#colaboradores">Ver colaboradores</a>
+        </div>
       </div>
 
-      <div class="stats-grid">
+      <div class="stats-grid" aria-label="Resumen de proyectos">
         <div class="stat">
           <div>
             <div class="stat-label">Grupos</div>
-            <div class="stat-value">30</div>
+            <div class="stat-value" id="groups-count">0</div>
           </div>
           <div class="icon-box i-indigo">👥</div>
         </div>
@@ -427,7 +827,7 @@
         <div class="stat">
           <div>
             <div class="stat-label">Proyectos</div>
-            <div class="stat-value">42</div>
+            <div class="stat-value" id="projects-count">0</div>
           </div>
           <div class="icon-box i-cyan">📁</div>
         </div>
@@ -435,7 +835,7 @@
         <div class="stat">
           <div>
             <div class="stat-label">Aprobados</div>
-            <div class="stat-value">18</div>
+            <div class="stat-value" id="approved-count">0</div>
           </div>
           <div class="icon-box i-green">✅</div>
         </div>
@@ -443,123 +843,159 @@
         <div class="stat">
           <div>
             <div class="stat-label">En revisión</div>
-            <div class="stat-value">12</div>
+            <div class="stat-value" id="review-count">0</div>
           </div>
           <div class="icon-box i-amber">⏱️</div>
         </div>
       </div>
 
-      <div class="topics">
+      <div class="topics" id="temas">
         <article class="topic-card">
           <div class="topic-art">
-            <svg width="290" height="170" viewBox="0 0 290 170" aria-label="Ilustración de magnetismo">
-              <defs>
-                <linearGradient id="g1" x1="0" x2="1">
-                  <stop offset="0%" stop-color="#dbeafe"/>
-                  <stop offset="100%" stop-color="#bfdbfe"/>
-                </linearGradient>
-              </defs>
-              <rect width="290" height="170" fill="#f8fbff"/>
-              <circle cx="110" cy="85" r="52" fill="#dbeafe" opacity="0.8"/>
-              <circle cx="110" cy="85" r="23" fill="#60a5fa" opacity="0.8"/>
-              <path d="M160 40 L190 85 L160 130" stroke="#1d4ed8" stroke-width="5" fill="none"/>
-              <path d="M190 40 L220 85 L190 130" stroke="#1d4ed8" stroke-width="5" fill="none"/>
-              <path d="M86 30 C118 18, 150 18, 180 44" stroke="#0ea5e9" stroke-width="4" fill="none" opacity="0.8"/>
-              <path d="M82 140 C118 152, 150 152, 186 126" stroke="#0ea5e9" stroke-width="4" fill="none" opacity="0.8"/>
-              <circle cx="210" cy="50" r="11" fill="#facc15"/>
-              <circle cx="228" cy="120" r="11" fill="#facc15"/>
-              <circle cx="200" cy="122" r="11" fill="#facc15"/>
-            </svg>
+            <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Bar-magnets-attracting-iron-filings_max.jpg/960px-Bar-magnets-attracting-iron-filings_max.jpg"
+              alt="Limaduras de hierro que muestran el campo alrededor de dos imanes de barra"
+              loading="lazy" decoding="async" width="700" height="402">
           </div>
+          <div class="image-credit">Imagen: MikeRun y Vera Wurmsdobler · <a href="https://commons.wikimedia.org/wiki/File:Bar-magnets-attracting-iron-filings_max.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></div>
           <div class="topic-body">
             <span class="topic-badge badge-magnetismo">Magnetismo</span>
             <h3>Magnetismo</h3>
             <p>
-              Estudio de campos magnéticos, fuerza sobre cargas y materiales ferromagnéticos,
-              con aplicaciones en motores, sensores y equipos de medición.
+              El campo magnético <strong>B</strong> describe la interacción magnética. Una carga
+              <strong>q</strong> que se mueve con velocidad <strong>v</strong> experimenta la fuerza
+              de Lorentz <strong>F = q(v × B)</strong>; su dirección es perpendicular a <em>v</em>
+              y a <em>B</em>.
             </p>
+            <div class="science-note"><strong>Importante:</strong> las limaduras se alinean con el
+              campo y permiten visualizar su dirección local; no miden por sí solas su intensidad.</div>
           </div>
         </article>
 
         <article class="topic-card">
           <div class="topic-art">
-            <svg width="290" height="170" viewBox="0 0 290 170" aria-label="Ilustración de imanes">
-              <rect width="290" height="170" fill="#fffaf0"/>
-              <g transform="translate(20,15)">
-                <rect x="26" y="20" width="70" height="115" rx="12" fill="#fbbf24" opacity="0.7"/>
-                <rect x="150" y="20" width="70" height="115" rx="12" fill="#f59e0b" opacity="0.8"/>
-                <path d="M44 55 Q85 20 122 55" stroke="#78350f" stroke-width="6" fill="none"/>
-                <path d="M44 100 Q85 135 122 100" stroke="#78350f" stroke-width="6" fill="none"/>
-                <path d="M148 55 Q190 20 230 55" stroke="#7c2d12" stroke-width="6" fill="none"/>
-                <path d="M148 100 Q190 135 230 100" stroke="#7c2d12" stroke-width="6" fill="none"/>
-                <circle cx="122" cy="78" r="8" fill="#fef3c7"/>
-                <circle cx="148" cy="78" r="8" fill="#fef3c7"/>
-                <path d="M122 45 L122 110" stroke="#7c2d12" stroke-width="4"/>
-                <path d="M148 45 L148 110" stroke="#7c2d12" stroke-width="4"/>
-              </g>
-            </svg>
+            <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Bar-magnets-repelling-iron-filings-max.jpg/960px-Bar-magnets-repelling-iron-filings-max.jpg"
+              alt="Limaduras de hierro que visualizan el campo entre dos imanes que se repelen"
+              loading="lazy" decoding="async" width="700" height="393">
           </div>
+          <div class="image-credit">Imagen: MikeRun y Vera Wurmsdobler · <a href="https://commons.wikimedia.org/wiki/File:Bar-magnets-repelling-iron-filings-max.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></div>
           <div class="topic-body">
             <span class="topic-badge badge-imanes">Imanes</span>
             <h3>Imanes</h3>
             <p>
-              Observación del comportamiento de campos magnéticos, polaridad y su uso en
-              sistemas de levitación, dispositivos de medición y experimentos de laboratorio.
+              Todo imán tiene polos norte y sur: polos iguales se repelen y polos opuestos se
+              atraen. En un imán permanente, la alineación de dominios magnéticos en el material
+              mantiene una magnetización macroscópica.
             </p>
+            <div class="science-note">Las líneas de campo forman lazos cerrados: fuera del imán
+              convencional se orientan de norte a sur y dentro continúan de sur a norte.</div>
           </div>
         </article>
 
         <article class="topic-card">
           <div class="topic-art">
-            <svg width="290" height="170" viewBox="0 0 290 170" aria-label="Ilustración de electromagnetismo">
-              <rect width="290" height="170" fill="#f5f3ff"/>
-              <circle cx="88" cy="85" r="44" fill="#c7d2fe" opacity="0.7"/>
-              <circle cx="88" cy="85" r="16" fill="#4f46e5" opacity="0.9"/>
-              <path d="M122 85 H208" stroke="#4f46e5" stroke-width="7" stroke-linecap="round"/>
-              <path d="M228 50 L258 85 L228 120" stroke="#0ea5e9" stroke-width="6" fill="none"/>
-              <path d="M146 40 L176 40" stroke="#0ea5e9" stroke-width="5"/>
-              <path d="M146 130 L176 130" stroke="#0ea5e9" stroke-width="5"/>
-              <path d="M120 142 C150 122, 176 122, 206 142" stroke="#0ea5e9" stroke-width="4" fill="none"/>
-              <path d="M134 52 C170 26, 216 26, 228 63" stroke="#0ea5e9" stroke-width="3" fill="none" opacity="0.8"/>
-            </svg>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Joseph_Henry_electromagnet.png"
+              alt="Ilustración histórica de un electroimán con núcleo de hierro y bobina"
+              loading="lazy" decoding="async" width="700" height="914">
           </div>
+          <div class="image-credit">Ilustración histórica · <a href="https://commons.wikimedia.org/wiki/File:Joseph_Henry_electromagnet.png" target="_blank" rel="noopener noreferrer">Wikimedia Commons, dominio público</a></div>
           <div class="topic-body">
             <span class="topic-badge badge-electromagnetismo">Electromagnetismo</span>
             <h3>Electromagnetismo</h3>
             <p>
-              Relación entre electricidad y magnetismo, corrientes, fuerza de Lorentz y la
-              base de motores, generadores y sistemas de transmisión energética.
+              Una corriente eléctrica produce un campo magnético. Para un cable recto largo en
+              el vacío, a distancia <strong>r</strong> del cable,
+              <strong>B = μ₀I/(2πr)</strong>. Un campo también ejerce fuerza sobre cargas en
+              movimiento y conductores con corriente.
             </p>
+            <div class="science-note">El sentido del campo alrededor del cable se obtiene con la
+              regla de la mano derecha. La expresión indicada supone un conductor recto ideal y
+              un punto fuera de él.</div>
           </div>
         </article>
 
         <article class="topic-card">
           <div class="topic-art">
-            <svg width="290" height="170" viewBox="0 0 290 170" aria-label="Ilustración de la ley de Faraday">
-              <rect width="290" height="170" fill="#f0fdf4"/>
-              <circle cx="84" cy="85" r="42" fill="#bbf7d0" opacity="0.8"/>
-              <circle cx="84" cy="85" r="16" fill="#16a34a" opacity="0.88"/>
-              <path d="M120 85 H208" stroke="#16a34a" stroke-width="6" stroke-linecap="round"/>
-              <path d="M146 44 L146 126" stroke="#16a34a" stroke-width="5"/>
-              <path d="M170 44 L170 126" stroke="#16a34a" stroke-width="5"/>
-              <path d="M205 46 Q236 74 205 122" stroke="#22c55e" stroke-width="5" fill="none"/>
-              <path d="M222 44 L256 84 L222 126" stroke="#15803d" stroke-width="6" fill="none"/>
-              <path d="M118 142 C150 116, 192 116, 228 142" stroke="#15803d" stroke-width="4" fill="none" opacity="0.8"/>
-            </svg>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Induction_experiment.png"
+              alt="Dibujo histórico del experimento de Faraday con dos bobinas y un galvanómetro"
+              loading="lazy" decoding="async" width="700" height="530">
           </div>
+          <div class="image-credit">J. Lambert, 1892 · <a href="https://commons.wikimedia.org/wiki/File:Induction_experiment.png" target="_blank" rel="noopener noreferrer">Wikimedia Commons, dominio público</a></div>
           <div class="topic-body">
             <span class="topic-badge badge-faraday">Ley de Faraday</span>
             <h3>Ley de Faraday</h3>
             <p>
-              Inducción electromagnética, variación del flujo magnético y su relación con la
-              generación de corriente eléctrica en sistemas experimentales.
+              Una variación del flujo magnético a través de un circuito induce una fuerza
+              electromotriz: <strong>ε = −N dΦ<sub>B</sub>/dt</strong>, donde
+              <strong>Φ<sub>B</sub> = ∫ B · dA</strong> y <strong>N</strong> es el número de vueltas.
             </p>
+            <div class="science-note">El signo menos expresa la ley de Lenz: la corriente inducida,
+              si el circuito está cerrado, genera un efecto que se opone al cambio de flujo que la produce.</div>
           </div>
         </article>
       </div>
+
+      <section class="registration" id="registro" aria-labelledby="registration-title">
+        <div class="registration-heading">
+          <span class="hero-kicker">Participa en el curso</span>
+          <h2 id="registration-title">Registra tu grupo y comparte su proyecto</h2>
+          <p>Completa los datos del equipo, elige el tema y adjunta uno o varios archivos del proyecto.</p>
+        </div>
+        <p class="local-notice">
+          <strong>Almacenamiento local:</strong> los registros y archivos se guardan en este navegador,
+          en este dispositivo. No se envían a un servidor ni son visibles para otros visitantes.
+          Usa archivos de hasta 25 MB en total por proyecto.
+        </p>
+        <form class="submission-form" id="submission-form">
+          <div class="form-field">
+            <label for="group-name">Nombre del grupo</label>
+            <input id="group-name" name="groupName" type="text" maxlength="100" required autocomplete="organization">
+          </div>
+          <div class="form-field">
+            <label for="project-title">Título del proyecto</label>
+            <input id="project-title" name="projectTitle" type="text" maxlength="140" required>
+          </div>
+          <div class="form-field form-field-full">
+            <label for="member-names">Integrantes</label>
+            <textarea id="member-names" name="members" maxlength="1500" required
+              placeholder="Escribe un nombre por línea"></textarea>
+            <span class="field-help">Escribe un integrante por línea. Se requiere al menos un nombre.</span>
+          </div>
+          <div class="form-field">
+            <label for="project-topic">Tema del proyecto</label>
+            <select id="project-topic" name="topic" required>
+              <option value="">Selecciona un tema</option>
+              <option value="Magnetismo">Magnetismo</option>
+              <option value="Imanes">Imanes</option>
+              <option value="Electromagnetismo">Electromagnetismo</option>
+              <option value="Ley de Faraday">Ley de Faraday</option>
+              <option value="Otro">Otro tema de Física III</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="project-files">Archivos del proyecto</label>
+            <input id="project-files" name="files" type="file" multiple required
+              aria-describedby="upload-help upload-summary">
+            <span class="field-help" id="upload-help">Se aceptan distintos formatos. Máximo total: 25 MB por proyecto.</span>
+            <span class="upload-summary" id="upload-summary" aria-live="polite"></span>
+          </div>
+          <div class="form-field form-field-full">
+            <label for="project-description">Descripción breve (opcional)</label>
+            <textarea id="project-description" name="description" maxlength="1000"
+              placeholder="Objetivo, método o resultados principales"></textarea>
+          </div>
+          <button class="button button-primary" type="submit">Registrar grupo y guardar proyecto</button>
+          <p class="form-message form-field-full" id="form-message" role="status" aria-live="polite"></p>
+        </form>
+        <div class="submissions" aria-labelledby="submissions-title">
+          <h3 id="submissions-title">Proyectos guardados en este dispositivo</h3>
+          <div class="submission-list" id="submission-list">
+            <p class="field-help">Cargando proyectos guardados…</p>
+          </div>
+        </div>
+      </section>
     </section>
 
-    <aside class="sidebar">
+    <aside class="sidebar" id="colaboradores">
       <div class="side-card">
         <h3>Colaboradores</h3>
         <ul class="collaborators">
@@ -620,5 +1056,246 @@
       <div>© 2026 • Todos los derechos reservados</div>
     </div>
   </footer>
+<script>
+  (() => {
+    const databaseName = "fisica-iii-proyectos";
+    const storeName = "submissions";
+    const maximumSubmissionSize = 25 * 1024 * 1024;
+    const form = document.getElementById("submission-form");
+    const fileInput = document.getElementById("project-files");
+    const fileSummary = document.getElementById("upload-summary");
+    const message = document.getElementById("form-message");
+    const submissionList = document.getElementById("submission-list");
+    const downloadUrls = [];
+
+    function openDatabase() {
+      return new Promise((resolve, reject) => {
+        if (!("indexedDB" in window)) {
+          reject(new Error("Este navegador no ofrece almacenamiento local compatible."));
+          return;
+        }
+
+        const request = window.indexedDB.open(databaseName, 1);
+        request.onupgradeneeded = () => {
+          const database = request.result;
+          if (!database.objectStoreNames.contains(storeName)) {
+            database.createObjectStore(storeName, { keyPath: "id" });
+          }
+        };
+        request.onsuccess = () => {
+          request.result.onversionchange = () => request.result.close();
+          resolve(request.result);
+        };
+        request.onerror = () => reject(request.error || new Error("No se pudo abrir el almacenamiento local."));
+        request.onblocked = () => reject(new Error("El almacenamiento está ocupado por otra pestaña. Ciérrala y vuelve a intentar."));
+      });
+    }
+
+    const databasePromise = openDatabase();
+
+    function saveSubmission(database, submission) {
+      return new Promise((resolve, reject) => {
+        const transaction = database.transaction(storeName, "readwrite");
+        transaction.objectStore(storeName).add(submission);
+        transaction.oncomplete = () => resolve();
+        transaction.onerror = () => reject(transaction.error || new Error("No se pudo guardar el proyecto."));
+        transaction.onabort = () => reject(transaction.error || new Error("Se canceló el guardado del proyecto."));
+      });
+    }
+
+    function readSubmissions(database) {
+      return new Promise((resolve, reject) => {
+        const request = database.transaction(storeName, "readonly").objectStore(storeName).getAll();
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error || new Error("No se pudieron leer los proyectos guardados."));
+      });
+    }
+
+    function updateCounters(submissions) {
+      const groups = new Set(submissions.map((item) => item.groupName.trim().toLocaleLowerCase("es")));
+      document.getElementById("groups-count").textContent = String(groups.size);
+      document.getElementById("projects-count").textContent = String(submissions.length);
+      document.getElementById("approved-count").textContent = String(
+        submissions.filter((item) => item.status === "Aprobado").length
+      );
+      document.getElementById("review-count").textContent = String(
+        submissions.filter((item) => item.status === "En revisión").length
+      );
+    }
+
+    function formatFileSize(size) {
+      if (size < 1024) return `${size} B`;
+      if (size < 1024 * 1024) return `${(size / 1024).toFixed(1)} KB`;
+      return `${(size / (1024 * 1024)).toFixed(1)} MB`;
+    }
+
+    function renderSubmissions(submissions) {
+      downloadUrls.splice(0).forEach((url) => URL.revokeObjectURL(url));
+      submissionList.replaceChildren();
+      submissions.sort((first, second) => second.createdAt - first.createdAt);
+
+      if (submissions.length === 0) {
+        const emptyState = document.createElement("p");
+        emptyState.className = "field-help";
+        emptyState.textContent = "Todavía no hay proyectos registrados en este navegador.";
+        submissionList.append(emptyState);
+        updateCounters(submissions);
+        return;
+      }
+
+      submissions.forEach((submission) => {
+        const item = document.createElement("article");
+        item.className = "submission-item";
+
+        const title = document.createElement("h4");
+        title.textContent = submission.projectTitle;
+        item.append(title);
+
+        const metadata = document.createElement("p");
+        metadata.className = "submission-meta";
+        metadata.textContent = `${submission.groupName} · ${submission.topic} · ${submission.members.join(", ")} · ${submission.status}`;
+        item.append(metadata);
+
+        if (submission.description) {
+          const description = document.createElement("p");
+          description.className = "submission-meta";
+          description.textContent = submission.description;
+          item.append(description);
+        }
+
+        const files = document.createElement("div");
+        files.className = "submission-files";
+        submission.files.forEach((file) => {
+          const link = document.createElement("a");
+          const url = URL.createObjectURL(file.blob);
+          downloadUrls.push(url);
+          link.className = "file-link";
+          link.href = url;
+          link.download = file.name;
+          link.textContent = `${file.name} (${formatFileSize(file.size)})`;
+          files.append(link);
+        });
+        item.append(files);
+        submissionList.append(item);
+      });
+
+      updateCounters(submissions);
+    }
+
+    fileInput.addEventListener("change", () => {
+      const files = Array.from(fileInput.files);
+      const totalSize = files.reduce((total, file) => total + file.size, 0);
+      fileSummary.textContent = files.length
+        ? `${files.length} archivo(s) · ${formatFileSize(totalSize)} en total`
+        : "";
+      fileSummary.dataset.kind = totalSize > maximumSubmissionSize ? "error" : "";
+      if (totalSize > maximumSubmissionSize) {
+        fileSummary.textContent += " — supera el máximo de 25 MB.";
+      }
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      message.textContent = "";
+      message.dataset.kind = "";
+
+      const formData = new FormData(form);
+      const files = Array.from(fileInput.files);
+      const groupName = String(formData.get("groupName")).trim();
+      const projectTitle = String(formData.get("projectTitle")).trim();
+      const members = String(formData.get("members"))
+        .split(/\r?\n/)
+        .map((name) => name.trim())
+        .filter(Boolean);
+      const totalSize = files.reduce((total, file) => total + file.size, 0);
+
+      if (!groupName || !projectTitle) {
+        message.textContent = "Escribe el nombre del grupo y el título del proyecto.";
+        message.dataset.kind = "error";
+        form.querySelector("#group-name").focus();
+        return;
+      }
+      if (members.length === 0) {
+        message.textContent = "Escribe al menos el nombre de un integrante.";
+        message.dataset.kind = "error";
+        document.getElementById("member-names").focus();
+        return;
+      }
+      if (files.length === 0) {
+        message.textContent = "Adjunta al menos un archivo para registrar el proyecto.";
+        message.dataset.kind = "error";
+        fileInput.focus();
+        return;
+      }
+      if (totalSize > maximumSubmissionSize) {
+        message.textContent = "Los archivos superan el límite total de 25 MB.";
+        message.dataset.kind = "error";
+        fileInput.focus();
+        return;
+      }
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      submitButton.disabled = true;
+      message.textContent = "Guardando en este navegador…";
+
+      try {
+        const database = await databasePromise;
+        const submission = {
+          id: window.crypto && typeof window.crypto.randomUUID === "function"
+            ? window.crypto.randomUUID()
+            : `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+          groupName,
+          projectTitle,
+          members,
+          topic: String(formData.get("topic")),
+          description: String(formData.get("description")).trim(),
+          status: "En revisión",
+          createdAt: Date.now(),
+          files: files.map((file) => ({
+            name: file.name,
+            type: file.type || "application/octet-stream",
+            size: file.size,
+            blob: file
+          }))
+        };
+
+        await saveSubmission(database, submission);
+        form.reset();
+        fileSummary.textContent = "";
+        message.textContent = "El grupo y su proyecto se guardaron correctamente en este dispositivo.";
+        message.dataset.kind = "success";
+        try {
+          renderSubmissions(await readSubmissions(database));
+        } catch (error) {
+          message.textContent = `El proyecto quedó guardado, pero no se pudo actualizar la lista: ${error.message}`;
+          message.dataset.kind = "error";
+        }
+      } catch (error) {
+        message.textContent = `No se pudo guardar el registro: ${error.message}`;
+        message.dataset.kind = "error";
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+
+    databasePromise
+      .then(readSubmissions)
+      .then(renderSubmissions)
+      .catch((error) => {
+        submissionList.replaceChildren();
+        const storageError = document.createElement("p");
+        storageError.className = "form-message";
+        storageError.dataset.kind = "error";
+        storageError.textContent = `No se pudo acceder al almacenamiento local: ${error.message}`;
+        submissionList.append(storageError);
+        message.textContent = "El registro requiere un navegador con IndexedDB habilitado.";
+        message.dataset.kind = "error";
+      });
+
+    window.addEventListener("pagehide", () => {
+      downloadUrls.forEach((url) => URL.revokeObjectURL(url));
+    });
+  })();
+</script>
 </body>
 </html>
